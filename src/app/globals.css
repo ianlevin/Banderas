@@ -1,0 +1,75 @@
+/* Contenedor principal */
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Descripción del contenido */
+  .description {
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  /* Estilo para la imagen de la bandera */
+  img {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para el campo de texto */
+  input[type="text"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para los botones */
+  button {
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #005bb5;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Estilo para el texto de resultado */
+  p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  /* Estilo para el mensaje de respuesta correcta o incorrecta */
+  p[style*="color: green;"] {
+    font-weight: bold;
+  }
+  
+  p[style*="color: red;"] {
+    font-weight: bold;
+  }
+  
