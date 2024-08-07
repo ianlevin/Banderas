@@ -1,7 +1,7 @@
 'use client'
-
 import { useEffect, useState } from 'react';
 import styles from "./page.module.css";
+import { useTimer } from './hooks/timer.js'; 
 
 const BanderaPage = () => {
   const [bandera, setBandera] = useState({
@@ -10,15 +10,23 @@ const BanderaPage = () => {
     iso2: null,
     iso3: null,
   });
-  const [listaPaises, setlistaPaises] = useState([]);
+  const [listaPaises, setListaPaises] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [matchPais, setmatchPais] = useState(null); 
-  const [puntos, setPuntos] = useState(0); 
+  const [matchPais, setMatchPais] = useState(null);
+  const [puntos, setPuntos] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  
+  const { time, isActive, start, reset, parar} = useTimer(15);
 
   useEffect(() => {
     fetchNewCountry();
   }, []);
+
+  useEffect(() => {
+    if (time === 0 && isActive) {
+      handleSubmit();
+    }
+  }, [time]);
 
   const fetchNewCountry = async () => {
     try {
@@ -36,11 +44,13 @@ const BanderaPage = () => {
         iso3: pais.iso3,
       });
 
-      setlistaPaises(prevList => [...prevList, pais]);
-
+      setListaPaises(prevList => [...prevList, pais]);
       setInputValue('');
-      setmatchPais(null);
+      setMatchPais(null);
       setSubmitted(false);
+      
+      reset(15);
+      start();
     } catch (error) {
       console.error('Error encontrando país:', error);
     }
@@ -53,18 +63,19 @@ const BanderaPage = () => {
   const handleSubmit = () => {
     if (!submitted) {
       if (inputValue.toLowerCase() === bandera.name.toLowerCase()) {
-        setmatchPais(true);
-        setPuntos(prevPuntos => prevPuntos + 10); 
+        setMatchPais(true);
+        setPuntos(prevPuntos => prevPuntos + 10);
       } else {
-        setmatchPais(false);
-        setPuntos(prevPuntos => Math.max(prevPuntos - 1, 0)); 
+        setMatchPais(false);
+        setPuntos(prevPuntos => Math.max(prevPuntos - 1, 0));
       }
       setSubmitted(true);
     }
+    parar()
   };
 
   const siguienteBandera = () => {
-    fetchNewCountry(); 
+    fetchNewCountry();
   };
 
   return (
@@ -73,7 +84,7 @@ const BanderaPage = () => {
         <h1>Bandera</h1>
         {bandera.flag ? (
           <div>
-            <img src={bandera.flag} alt={`Flag of ${bandera.name}`} style={{ width: '100px', height: 'auto' }} />
+            <img src={bandera.flag} alt={`Bandera de ${bandera.name}`} style={{ width: '100px', height: 'auto' }} />
             <input
               type="text"
               value={inputValue}
@@ -85,6 +96,7 @@ const BanderaPage = () => {
             {matchPais === true && <p style={{ color: 'green' }}>¡Correcto!</p>}
             {matchPais === false && <p style={{ color: 'red' }}>Incorrecto</p>}
             {matchPais !== null && <button onClick={siguienteBandera}>Siguiente Bandera</button>}
+            <p>Tiempo restante: {time} segundos</p>
           </div>
         ) : (
           <p>Cargando...</p>
