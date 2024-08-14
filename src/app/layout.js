@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
           <nav>
             <ul>
               <li><Link href="/">Inicio</Link></li>
-              <li><Link href="/bandera">Juegar</Link></li>
+              <li><Link href="/usuarios">Jugar</Link></li>
               <li><Link href="/puntajes">Puntajes</Link></li>
             </ul>
           </nav>
