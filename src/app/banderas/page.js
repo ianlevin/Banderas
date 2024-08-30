@@ -17,7 +17,7 @@ const BanderaPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   
-  const { time, isActive, start, reset, parar} = useTimer(15);
+  const { time, isActive, start, reset, parar } = useTimer(15);
 
   useEffect(() => {
     const user = localStorage.getItem('currentUser');
@@ -26,7 +26,7 @@ const BanderaPage = () => {
       const savedNames = JSON.parse(localStorage.getItem('names')) || [];
       const userData = savedNames.find(name => name.name === user);
       if (userData) {
-        setPuntos(userData.points); // Load the user's points
+        setPuntos(userData.points); 
       }
     } else {
       window.location.href = '/nameSelection';
@@ -102,9 +102,8 @@ const BanderaPage = () => {
       setPuntos(prevPuntos => Math.max(prevPuntos - 1, 0));
       setMatchPais(false);
       setSubmitted(true);
-      parar();
     }
-    fetchNewCountry();
+    fetchNewCountry(); 
   };
 
   const siguienteBandera = () => {
